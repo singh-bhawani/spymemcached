@@ -340,7 +340,7 @@ public class MemcachedConnection extends SpyThread {
    * @return addrs list of {@link MemcachedNode}s.
    * @throws IOException if connecting was not successful.
    */
-  protected List<MemcachedNode> createConnections(
+  public List<MemcachedNode> createConnections(
     final Collection<InetSocketAddress> addrs) throws IOException {
     List<MemcachedNode> connections = new ArrayList<MemcachedNode>(addrs.size());
 

@@ -353,12 +353,14 @@ public class ConnectionFactoryBuilder {
       @Override
       public NodeLocator createLocator(List<MemcachedNode> nodes) {
         switch (locator) {
-        case ARRAY_MOD:
-          return new ArrayModNodeLocator(nodes, getHashAlg());
-        case CONSISTENT:
-          return new KetamaNodeLocator(nodes, getHashAlg());
-        default:
-          throw new IllegalStateException("Unhandled locator type: " + locator);
+          case ARRAY_MOD:
+            return new ArrayModNodeLocator(nodes, getHashAlg());
+          case CONSISTENT:
+            return new KetamaNodeLocator(nodes, getHashAlg());
+          case ROUND_ROBIN:
+            return new RoundRobinNodeLocator(nodes);
+          default:
+            throw new IllegalStateException("Unhandled locator type: " + locator);
         }
       }
 
@@ -496,6 +498,8 @@ public class ConnectionFactoryBuilder {
     /**
      * VBucket support.
      */
-    VBUCKET
+    VBUCKET,
+
+    ROUND_ROBIN;
   }
 }

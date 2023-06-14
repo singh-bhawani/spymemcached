@@ -14,7 +14,44 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.spy</groupId>
     <artifactId>spymemcached</artifactId>
-    <version>2.999.999-SNAPSHOT</version> <!-- not used -->
+    <version>3.0.1-EXPERIMENTAL</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>shaded</shadedClassifierName>
+                            <relocations>
+                                <relocation>
+                                    <pattern>net.spy.memcached</pattern>
+                                    <shadedPattern>net.spy.shaded.memcached</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build> <!-- not used -->
 
     <name>Spymemcached</name>
     <description>A client library for memcached.</description>
@@ -44,6 +81,23 @@
     </developers>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+
+
         <!-- Optional Dependencies at Runtime -->
         <dependency>
             <groupId>log4j</groupId>
@@ -85,5 +139,71 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>github</id>
+            <activation>
+                <property>
+                    <name>useGitPackages</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+            </properties>
+            <distributionManagement>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub Packages</name>
+                    <url>https://maven.pkg.github.com/Meesho/redis-client</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>test-repository</id>
+            <activation>
+                <property>
+                    <name>useTestRepo</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+            </properties>
+            <distributionManagement>
+                <repository>
+                    <id>central-dev</id>
+                    <name>MvnTest</name>
+                    <url>http://ja-dev.internal.meeshotest.in/artifactory/lib-release</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshots-dev</id>
+                    <name>MvnTest</name>
+                    <url>http://ja-dev.internal.meeshotest.in/artifactory/lib-release</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>prod-repository</id>
+            <activation>
+                <property>
+                    <name>useProdRepo</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+            </properties>
+            <distributionManagement>
+                <repository>
+                    <id>central</id>
+                    <name>ip-172-31-32-151-releases</name>
+                    <url>http://bac-p-jfrog.meeshoint.in/artifactory/lib-release</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <name>ip-172-31-32-151-snapshot</name>
+                    <url>http://bac-p-jfrog.meeshoint.in/artifactory/lib-snapshot</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
 </project>
