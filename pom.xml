@@ -14,7 +14,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.spy</groupId>
     <artifactId>spymemcached</artifactId>
-    <version>3.0.1-EXPERIMENTAL</version>
+    <version>3.0.2-MEESHO-EXPERIMENTAL</version>
     <build>
         <plugins>
             <plugin>
@@ -25,30 +25,38 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>shaded</shadedClassifierName>
-                            <relocations>
-                                <relocation>
-                                    <pattern>net.spy.memcached</pattern>
-                                    <shadedPattern>net.spy.shaded.memcached</shadedPattern>
-                                </relocation>
-                            </relocations>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-shade-plugin</artifactId>-->
+<!--                <version>3.2.4</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>shade</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <createDependencyReducedPom>false</createDependencyReducedPom>-->
+<!--                            <shadedArtifactAttached>true</shadedArtifactAttached>-->
+<!--                            <shadedClassifierName>shaded</shadedClassifierName>-->
+<!--                            <relocations>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>net</pattern>-->
+<!--                                    <shadedPattern>net.meesho</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>com</pattern>-->
+<!--                                    <shadedPattern>com.meesho</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>org</pattern>-->
+<!--                                    <shadedPattern>org.meesho</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                            </relocations>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
         </plugins>
     </build> <!-- not used -->
