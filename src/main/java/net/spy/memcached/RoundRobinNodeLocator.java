@@ -2,13 +2,16 @@ package net.spy.memcached;
 
 
 import com.google.common.collect.Iterators;
+import net.spy.memcached.compat.log.Logger;
+import net.spy.memcached.compat.log.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-//@Slf4j
 public class RoundRobinNodeLocator implements NodeLocator {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoundRobinNodeLocator.class);
 
     private final Object lock = new Object();
     private List<MemcachedNode> nodes;
@@ -29,7 +32,9 @@ public class RoundRobinNodeLocator implements NodeLocator {
 
     @Override
     public Iterator<MemcachedNode> getSequence(String k) {
-        return cyclingIter;
+        LOGGER.error("Requesting the Sequence/backup Node as primary node is not active");
+        MemcachedNode backUpNode = getPrimary(k);
+        return Iterators.cycle(backUpNode);
     }
 
     @Override

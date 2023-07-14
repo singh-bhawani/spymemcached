@@ -14,7 +14,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.spy</groupId>
     <artifactId>spymemcached</artifactId>
-    <version>3.0.2-MEESHO-EXPERIMENTAL</version>
+    <version>3.0.3-MEESHO-EXPERIMENTAL</version>
     <build>
         <plugins>
             <plugin>
@@ -144,6 +144,12 @@
             <artifactId>jmock</artifactId>
             <version>1.2.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
