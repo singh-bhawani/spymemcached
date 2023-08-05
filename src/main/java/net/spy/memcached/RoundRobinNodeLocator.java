@@ -5,6 +5,7 @@ import com.google.common.collect.Iterators;
 import net.spy.memcached.compat.log.Logger;
 import net.spy.memcached.compat.log.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +35,9 @@ public class RoundRobinNodeLocator implements NodeLocator {
     public Iterator<MemcachedNode> getSequence(String k) {
         LOGGER.error("Requesting the Sequence/backup Node as primary node is not active");
         MemcachedNode backUpNode = getPrimary(k);
-        return Iterators.cycle(backUpNode);
+        List<MemcachedNode> nodeList = new ArrayList<>();
+        nodeList.add(backUpNode);
+        return nodeList.iterator();  //intentionally not using cycle iterator
     }
 
     @Override
