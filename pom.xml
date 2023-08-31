@@ -14,7 +14,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.spy</groupId>
     <artifactId>spymemcached</artifactId>
-    <version>3.0.4-MEESHO-EXPERIMENTAL</version>
+    <version>3.0.5-MEESHO-EXPERIMENTAL</version>
     <build>
         <plugins>
             <plugin>

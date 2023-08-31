@@ -31,12 +31,13 @@ public class RoundRobinNodeLocator implements NodeLocator {
         return primaryNode;
     }
 
+    //todo : fix
     @Override
     public Iterator<MemcachedNode> getSequence(String k) {
         LOGGER.error("Requesting the Sequence/backup Node as primary node is not active");
-        MemcachedNode backUpNode = getPrimary(k);
+//        MemcachedNode backUpNode = getPrimary(k);
         List<MemcachedNode> nodeList = new ArrayList<>();
-        nodeList.add(backUpNode);
+//        nodeList.add(backUpNode);
         return nodeList.iterator();  //intentionally not using cycle iterator
     }
 
